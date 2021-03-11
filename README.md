@@ -1,4 +1,4 @@
-# IPFCE-assignment-1-introduction
+# IPFCE-Week-1-introduction
 
 ```bash
 python autograde.py
