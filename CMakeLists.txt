@@ -1,39 +1,47 @@
-cmake_minimum_required(VERSION 3.10)
-project(template)
+cmake_minimum_required(VERSION 3.16)
+project(assignment-1 LANGUAGES C CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+# create compile_commands.json
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+# install compile_commands.json to .vscode/c_cpp_properties.json
+# check if folder exists
+if(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/.vscode)
+	file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/.vscode)
+endif()
+
+install(FILES ${CMAKE_BINARY_DIR}/compile_commands.json DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/.vscode)
+
+# create symbolic link to compile_commands.json in build directory
+# so that it can be used by clangd
+file(CREATE_LINK ${CMAKE_BINARY_DIR}/compile_commands.json ${CMAKE_CURRENT_SOURCE_DIR}/compile_commands.json SYMBOLIC)
+
+Include(FetchContent)
+
+FetchContent_Declare(
+		Catch2
+		GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+		GIT_TAG        v3.0.1 # or a later release
+)
+
+FetchContent_MakeAvailable(Catch2)
+
+include_directories(include)
+
+add_library(max src/max.c)
+add_library(add src/add.c)
+add_library(max_sum src/max_sum.c)
+
+add_executable(max_test tests/max.cpp)
+target_link_libraries(max_test max Catch2::Catch2WithMain)
+add_executable(add_test tests/add.cpp)
+target_link_libraries(add_test add Catch2::Catch2WithMain)
+add_executable(max_sum_test tests/max_sum.cpp)
+target_link_libraries(max_sum_test max_sum Catch2::Catch2WithMain)
+
+
+list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/extras) # Needed when installing Catch2 with FetchContent
 include(CTest)
-
-set(CMAKE_CXX_STANDARD 14)
-
-# static checks
-# if(MSVC)
-#   add_compile_options(/W4 /WX)
-# else()
-#   add_compile_options(-Wall -Wextra -pedantic -Werror)
-# endif()
-
-# set(CMAKE_CXX_CLANG_TIDY
-#   clang-tidy;
-#   -checks=*;
-# )
-
-# set(CMAKE_CXX_CPPCHECK
-#   cppcheck;
-#   --error-exitcode=1;
-# )
-
-
-# define library called queue that can imported into other targets via
-# 'target_link_libraries'
-add_library(mymath src/max.c src/swap.c src/max_sum.c)
-target_include_directories(mymath PUBLIC include)
-
-# define executable named main for experimenting and debugging code
-add_executable(main src/main.cpp)
-target_link_libraries(main mymath)
-
-# tests are added by declaring a target, in this case 'tests'. additional tests
-# can be added by expanding the test cases in 'src/tests.cpp' or an additional
-# target via 'add_executable'
-enable_testing()
-add_subdirectory(tests)
-
+include(Catch)
+catch_discover_tests(max_test)
