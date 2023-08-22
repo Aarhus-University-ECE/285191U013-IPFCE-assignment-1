@@ -14,6 +14,8 @@ cmake --build build --target all
 ## Run tests
     
 ```bash
+make test
+# or
 ctest --test-dir build
 ```
 ## Exercises
