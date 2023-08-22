@@ -1,19 +1,34 @@
 # IPFCE-Week-1-introduction
 
+See `./assignment.pdf` for the assignment.
+
+## Build
+
 ```bash
-python autograde.py
+cmake -S . -B build
+cmake --build build --target all
 ```
 
-## Exercise
+## Run tests
+    
+```bash
+ctest --test-dir build
+```
+## Exercises
 
-1. Write a program that swaps two numbers. Given input 143 271 it produces 271 143.
-   Note, it is not enough to just print them out in a different order than reading them
-   in. You actually have to swap the content of the variables.
+1. Write a program that computes the maximum of two integer numbers.
 
-2. Write a program that computes the maximum of two integer numbers.
+See `src/max.c` for where to write your solution.
+The function is proper if the test cases in `test/max.cpp` pass.
 
-3. Write a program that adds two numbers; write a program that adds three numbers;
+2. Write a program that adds two numbers; write a program that adds three numbers;
    write a program that adds four numbers.
+   
+See `src/add.c` for where to write your solution.
+The function is proper if the test cases in `test/add.cpp` pass.
 
-4. Challenge: Write a program that computes the maximum number that can be
+3. Challenge: Write a program that computes the maximum number that can be
    produced by adding at most three arbitrary (possibly negative) integer numbers.
+   
+See `src/max_sum.c` for where to write your solution.
+The function is proper if the test cases in `test/max_sum.cpp` pass.
