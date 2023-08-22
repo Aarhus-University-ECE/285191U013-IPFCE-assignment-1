@@ -1,4 +1,4 @@
-.PHONY: all configure build test
+.PHONY: all configure build test test-add test-max test-max-sum
 
 all: build
 
