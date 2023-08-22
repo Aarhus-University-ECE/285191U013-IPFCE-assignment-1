@@ -3,7 +3,7 @@
 all: build
 
 configure:
-	cmake -S . -B build
+	cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug
 
 build: configure
 	cmake --build build --target all --parallel=$(shell nproc)
