@@ -1,10 +1,12 @@
 # IPFCE-Week-1-introduction
 
-See `./assignment.pdf` for the assignment.
+See `./Assignment_Week01.pdf` for the assignment.
 
 ## Build
 
 ```bash
+make
+# or
 cmake -S . -B build
 cmake --build build --target all
 ```
