@@ -9,12 +9,15 @@ build: configure
 	cmake --build build --target all --parallel=$(shell nproc)
 
 exercise-5: build
-	./build/exercise-5
+	@echo "---------- EXERCISE 5 ----------"
+	@./build/exercise-5
 
 exercise-6: build
-	./build/exercise-6
+	@echo "---------- EXERCISE 6 ----------"
+	@./build/exercise-6
 
 exercise-7: build
-	./build/exercise-7
+	@echo "---------- EXERCISE 7 ----------"
+	@./build/exercise-7
 
 exercises: exercise-5 exercise-6 exercise-7
